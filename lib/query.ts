@@ -1,4 +1,4 @@
-export const GET_PRODUCT = `query{
+export const GET_PRODUCTS = `query{
     products{
       data{
         id
@@ -10,7 +10,7 @@ export const GET_PRODUCT = `query{
           image{
             data{
               attributes{
-              formats
+                formats
               }
             }
           }
@@ -19,3 +19,24 @@ export const GET_PRODUCT = `query{
     }
   }
   `;
+
+export const GET_PRODUCT = `query getProduct($id: ID!) {
+  products(filters: {id: {eq: $id}}) {
+    data{
+      attributes{
+          description
+          name
+          slug
+          price
+          image{
+            data{
+              attributes{
+                formats
+              }
+            }
+          }
+        }
+    }
+  }
+}
+`;
