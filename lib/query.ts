@@ -1,0 +1,21 @@
+export const GET_PRODUCT = `query{
+    products{
+      data{
+        id
+        attributes{
+          description
+          name
+          slug
+          price
+          image{
+            data{
+              attributes{
+              formats
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  `;
