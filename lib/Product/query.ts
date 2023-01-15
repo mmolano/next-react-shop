@@ -7,6 +7,15 @@ export const GET_PRODUCTS = `query{
           name
           slug
           price
+          categories{
+            data{
+              id
+              attributes{
+                gender
+                type
+              }
+            }
+          }
           image{
             data{
               attributes{
@@ -28,6 +37,15 @@ export const GET_PRODUCT = `query getProduct($id: ID!) {
           name
           slug
           price
+          categories{
+            data{
+              id
+              attributes{
+                gender
+                type
+              }
+            }
+          }
           image{
             data{
               attributes{

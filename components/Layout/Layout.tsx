@@ -9,7 +9,7 @@ type LayoutProps = {
 export const Layout = ({ children }: LayoutProps) => (
   <>
     <Header/>
-    <main className="h-full w-full bg-white py-16 px-4 flex flex-col items-center justify-center">
+    <main className="h-full w-full bg-white py-2 px-10 flex flex-col">
       {children}
     </main>
     <Footer/>
