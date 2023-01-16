@@ -1,16 +1,16 @@
+import Link from "next/link";
+import { useStateContext } from "../../lib/Product/context";
 import { useQuery } from "urql";
-import { GET_PRODUCT } from "../../lib/Product/query";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { getQueryProduct } from "./hooks/getQuery";
-import Link from "next/link";
+import { GET_PRODUCT } from "../../lib/Product/query";
 import { Loader } from "../Loader/Loader";
-import { useContext } from "react";
-import ProductStateContext from "../../lib/Product/context";
 
 export const ProductDetails = () => {
   const { query } = useRouter();
-  const { quantity } = useContext(ProductStateContext);
+  const { quantity, addProduct, removeProduct, onAdd } = useStateContext();
   const [results]: object = getQueryProduct(query.id);
   const { data, fetching, error }: object = results;
 
@@ -24,15 +24,6 @@ export const ProductDetails = () => {
   categories.data.map((category: object) => {
     return allCategories.push(category.attributes.gender), allCategories.push(category.attributes.type)
   })
-
-  const addProduct = () => {
-    setQty(prevState => prevState + 1)
-  }
-  const removeProduct = () => {
-    if (quantity > 0) {
-      setQty(prevState => prevState - 1)
-    }
-  }
 
   return (
     <>
@@ -81,7 +72,7 @@ export const ProductDetails = () => {
             </div>
 
             <p className=" font-normal text-base leading-6 text-gray-600 mt-7">{description}</p>
-            <p className=" font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 mt-6 ">$ {price}</p>
+            <p className=" font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 mt-6 ">$ {price.toFixed(2)}</p>
             <p className=" mt-8 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 font-normal text-base leading-4 text-gray-600">
               <b>Categories</b>: {allCategories.join(', ').toString()}
             </p>
@@ -107,7 +98,11 @@ export const ProductDetails = () => {
               </div>
               <hr className=" bg-gray-200 w-full mt-4" />
             </div>
-            <button className="focus:outline-none focus:ring-2 hover:bg-black focus:ring-offset-2 focus:ring-gray-800 font-medium text-base leading-4 text-white bg-gray-800 w-full py-5 lg:mt-12 mt-6">Add to shopping bag</button>
+            <button onClick={() => onAdd(data.products.data[0].attributes, quantity)}
+              className="focus:outline-none focus:ring-2 enabled:hover:bg-black focus:ring-offset-2 focus:ring-gray-800 font-medium text-base leading-4 text-white bg-gray-800 w-full py-5 lg:mt-12 mt-6 disabled:opacity-75"
+              disabled={quantity < 1 ? true : false}>
+              Add to shopping bag
+            </button>
           </div>
           <div className=" w-full sm:w-96 md:w-8/12  lg:w-6/12 flex lg:flex-row flex-col lg:gap-8 sm:gap-6 gap-4">
             <div className=" w-full lg:w-8/12 bg-gray-100 flex justify-center items-center">

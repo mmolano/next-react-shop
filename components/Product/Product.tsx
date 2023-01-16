@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export const Product = (product: ProductProps) => {
   const { name, price, image, slug } = product.product.attributes;
-  const id = product.product.id;
+  const id: number = product.product.id;
 
   return (
     <>
-      <article className="group relative">
+      <article className="group">
         <Link href={`/product/${id}`}>
           <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 overflow-hidden lg:h-96 lg:aspect-none">
             <img
@@ -21,7 +21,7 @@ export const Product = (product: ProductProps) => {
           <h2 className="text-base text-gray-900">
             {name}
           </h2>
-          <p className="text-sm font-medium text-gray-900 mt-3">${price}</p>
+          <p className="text-sm font-medium text-gray-900 mt-3">${price.toFixed(2)}</p>
         </div>
       </article>
     </>
