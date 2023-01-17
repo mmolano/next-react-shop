@@ -1,7 +1,7 @@
 import { useStateContext } from "../../../lib/Product/context";
-import { getStripe } from "../../../lib/stripe";
 import { Cart } from "../Cart";
-import axios from 'axios'
+import { buyProduct } from "../../../lib/api/buyProduct";
+import { parsePrice } from "../../../lib/price";
 
 export const CartModal = () => {
   const {
@@ -10,18 +10,6 @@ export const CartModal = () => {
     setShowCart,
     totalPrice
   } = useStateContext();
-
-  const handleCheckout = async () => {
-    const stripe = await getStripe();
-    //TODO: ADD STRIPE
-    const response = await axios.post(`/api/stripe`, {
-      body: cartItems,
-    })
-      .then(res => {
-        console.log(res);
-        stripe.redirectToCheckout({ sessionId: res.data.id });
-      })
-  }
 
   return (
     <>
@@ -59,11 +47,11 @@ export const CartModal = () => {
                           <p className="text-4xl font-black leading-9 text-gray-800">Summary</p>
                           <div className="flex items-center justify-between pt-16">
                             <p className="text-base leading-none text-gray-800">Subtotal</p>
-                            <p className="text-base leading-none text-gray-800">${totalPrice.toFixed(2)}</p>
+                            <p className="text-base leading-none text-gray-800">${parsePrice(totalPrice)}</p>
                           </div>
                           <div className="flex items-center justify-between pt-5">
                             <p className="text-base leading-none text-gray-800">Shipping</p>
-                            <p className="text-base leading-none text-gray-800">$0</p>
+                            <p className="text-base leading-none text-gray-800">$10</p>
                           </div>
                           <div className="flex items-center justify-between pt-5">
                             <p className="text-base leading-none text-gray-800">Tax</p>
@@ -73,9 +61,9 @@ export const CartModal = () => {
                         <div>
                           <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
                             <p className="text-2xl leading-normal text-gray-800">Total</p>
-                            <p className="text-2xl font-bold leading-normal text-right text-gray-800">${totalPrice.toFixed(2)}</p>
+                            <p className="text-2xl font-bold leading-normal text-right text-gray-800">${parsePrice(totalPrice + 10)}</p>
                           </div>
-                          <button onClick={() => handleCheckout()} className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
+                          <button onClick={() => buyProduct(cartItems)} className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white">
                             Checkout
                           </button>
                         </div>

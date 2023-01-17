@@ -1,14 +1,16 @@
 import ProductProps from "../../interface/product";
 import Link from "next/link";
+import { sanitizeUrl } from "../../lib/sanitizer";
 
 export const Product = (product: ProductProps) => {
   const { name, price, image, slug } = product.product.attributes;
   const id: number = product.product.id;
+  const url = sanitizeUrl(`/product/${id}`);
 
   return (
     <>
       <article className="group">
-        <Link href={`/product/${id}`}>
+        <Link href={url}>
           <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 overflow-hidden lg:h-96 lg:aspect-none">
             <img
               className="w-full h-full object-center object-cover lg:w-full lg:h-full"

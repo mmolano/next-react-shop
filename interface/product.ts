@@ -1,16 +1,28 @@
-type ProductProps = {
+export type ProductProps = {
   product: {
     id: number,
     attributes: {
       description: string,
-      title: string,
+      name: string,
       slug: string,
       price: number,
       image: {
-        data: object,
+        data: [
+          attributes: object
+        ],
       },
     }
   }
 }
 
-export default ProductProps;
+export type cartProps = {
+  description: string,
+  name: string,
+  slug: string,
+  price: number,
+  image: {
+    data: [
+      attributes: object
+    ],
+  },
+}
