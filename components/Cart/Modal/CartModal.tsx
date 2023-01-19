@@ -1,4 +1,4 @@
-import { useStateContext } from "../../../lib/Product/context";
+import { useStateContext } from "../../../lib/product/context";
 import { Cart } from "../Cart";
 import { buyProduct } from "../../../lib/api/buyProduct";
 import { parsePrice } from "../../../lib/price";

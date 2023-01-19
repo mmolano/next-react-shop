@@ -1,14 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Stripe } from 'stripe';
+import { getSession } from "@auth0/nextjs-auth0";
 
-// TODO: STRIPE PAY
+
 const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`)
 
 export default async (request: NextApiRequest, response: NextApiResponse) => {
+  const { user } = await getSession(request, response);
+  const user_stripe_id = user["http://localhost:3000/stripe_customer_id"];
+
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       submit_type: 'pay',
+      customer: user_stripe_id,
       payment_method_types: ['card'],
       success_url: `${request.headers.origin}/success?&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${request.headers.origin}/canceled`,

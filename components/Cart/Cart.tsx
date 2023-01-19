@@ -1,4 +1,4 @@
-import { useStateContext } from "../../lib/Product/context";
+import { useStateContext } from "../../lib/product/context";
 
 // TODO check type
 export const Cart = (product) => {

@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { useStateContext } from "../../lib/Product/context";
+import { useStateContext } from "../../lib/product/context";
 import { useQuery } from "urql";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { getQueryProduct } from "./hooks/getQuery";
-import { GET_PRODUCT } from "../../lib/Product/query";
+import { GET_PRODUCT } from "../../lib/product/query";
 import { Loader } from "../Loader/Loader";
 
 export const ProductDetails = () => {
@@ -18,7 +18,7 @@ export const ProductDetails = () => {
   if (fetching) return <Loader />;
   if (error) return <p>{error.message}</p>;
 
-  const { name, price, image, description, slug, categories } = data.products.data[0].attributes;
+  const { name, price, image, description, slug, categories, availability } = data.products.data[0].attributes;
   const allCategories: string[] = [];
 
   categories.data.map((category: object) => {
@@ -68,7 +68,7 @@ export const ProductDetails = () => {
                   />
                 </svg>
               </div>
-              <p className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 font-normal text-base leading-4 text-gray-700 hover:underline hover:text-gray-800 duration-100 cursor-pointer">22 reviews</p>
+              <p className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 font-normal text-base leading-4 text-gray-700 hover:underline hover:text-gray-800 duration-100 cursor-pointer">{availability} items remaining</p>
             </div>
 
             <p className=" font-normal text-base leading-6 text-gray-600 mt-7">{description}</p>
@@ -80,21 +80,14 @@ export const ProductDetails = () => {
               <div className="flex flex-row justify-between">
                 <p className=" font-medium text-base leading-4 text-gray-600">Select quantity</p>
                 <div className="flex">
-                  <span onClick={removeProduct} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer border border-gray-300 border-r-0 w-7 h-7 flex items-center justify-center pb-1">
+                  <button onClick={removeProduct} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer border border-gray-300 border-r-0 w-7 h-7 flex items-center justify-center pb-1">
                     -
-                  </span>
+                  </button>
                   <input id="counter" aria-label="input" className="border border-gray-300 h-full text-center w-14 pb-1" type="text" value={quantity} onChange={(e) => e.target.value} />
-                  <span onClick={addProduct} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer border border-gray-300 border-l-0 w-7 h-7 flex items-center justify-center pb-1 ">
+                  <button onClick={addProduct} disabled={(quantity === availability) ? true : false} className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer border border-gray-300 border-l-0 w-7 h-7 flex items-center justify-center pb-1 disabled:text-stone-600">
                     +
-                  </span>
+                  </button>
                 </div>
-              </div>
-              <hr className=" bg-gray-200 w-full my-2" />
-              <div className=" flex flex-row justify-between items-center mt-4">
-                <p className="font-medium text-base leading-4 text-gray-600">Dimensions</p>
-                <svg className={"focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 cursor-pointer transform "} width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 1L5 5L1 1" stroke="#4B5563" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
               </div>
               <hr className=" bg-gray-200 w-full mt-4" />
             </div>

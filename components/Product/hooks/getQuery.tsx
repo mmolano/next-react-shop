@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCT } from '../../../lib/Product/query'
+import { GET_PRODUCTS, GET_PRODUCT } from '../../../lib/product/query'
 import { Query, useQuery } from 'urql'
 
 export const getQueryProducts: object = () => {

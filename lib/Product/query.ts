@@ -7,6 +7,7 @@ export const GET_PRODUCTS: object = `query{
           name
           slug
           price
+          availability
           categories{
             data{
               id
@@ -37,6 +38,7 @@ export const GET_PRODUCT: object = `query getProduct($id: ID!) {
           name
           slug
           price
+          availability
           categories{
             data{
               id

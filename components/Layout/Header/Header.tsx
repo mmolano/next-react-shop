@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { useState } from "react";
-import { useStateContext } from "../../../lib/Product/context";
+import { useStateContext } from "../../../lib/product/context";
 import { CartModal } from "../../Cart/Modal/CartModal";
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { UserLog } from "../../User/Login/UserLog";
+
 
 export const Header = () => {
   const {
@@ -50,12 +53,6 @@ export const Header = () => {
                   <li>
                     <a href="javascript:void(0)" className="dark:text-black dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
                       {" "}
-                      New{" "}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="javascript:void(0)" className="dark:text-black dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
-                      {" "}
                       Men{" "}
                     </a>
                   </li>
@@ -68,26 +65,21 @@ export const Header = () => {
                   <li>
                     <a href="javascript:void(0)" className="dark:text-black dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
                       {" "}
-                      Kids{" "}
+                      Contact{" "}
                     </a>
                   </li>
                   <li>
                     <a href="javascript:void(0)" className="dark:text-black dark:hover:text-gray-300 text-base text-right text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 hover:underline">
                       {" "}
-                      Magazine{" "}
+                      Faq{" "}
                     </a>
                   </li>
                 </ul>
               </div>
               <div className="hidden md:flex items-center space-x-4">
-                <a aria-label="my account" href="javascript:void(0)" className="focus:outline-none focus:ring-2 focus:ring-gray-800 hover:bg-gray-100 p-0.5 rounded">
-                  <svg className="fill-stroke text-gray-800 dark:text-black" width={18} height={20} viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M9 9C11.2091 9 13 7.20914 13 5C13 2.79086 11.2091 1 9 1C6.79086 1 5 2.79086 5 5C5 7.20914 6.79086 9 9 9Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
+                <UserLog isMobile="true" />
                 <button onClick={() => setShowCart(true)} aria-label="Bag" className="relative focus:outline-none focus:ring-2 focus:ring-gray-800 hover:bg-gray-100 p-0.5 rounded">
-                  <div className={`absolute text-xs bottom-4 rounded-xl bg-black text-white w-4 right-4 ${totalCountProduct > 0 ? 'animate-bounce': ''}`}>
+                  <div className={`absolute text-xs bottom-4 rounded-xl bg-black text-white w-4 right-4 ${totalCountProduct > 0 ? 'animate-bounce' : ''}`}>
                     {
                       cartItems.length >= 1 ? totalCountProduct : 0
                     }
@@ -148,17 +140,7 @@ export const Header = () => {
             </div>
             <div className="w-full h-full flex items-end">
               <ul className="bg-gray-50 dark:bg-gray-800 py-10 px-4 flex flex-col space-y-8 w-full">
-                <li>
-                  <a className="flex items-center space-x-2 focus:outline-none text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-800 hover:underline" href="javascript:void(0)">
-                    <div>
-                      <svg className="fill-stroke" width={18} height={20} viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M9 9C11.2091 9 13 7.20914 13 5C13 2.79086 11.2091 1 9 1C6.79086 1 5 2.79086 5 5C5 7.20914 6.79086 9 9 9Z" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                    <p className="text-base">My account</p>
-                  </a>
-                </li>
+                <UserLog />
                 <li>
                   <button onClick={() => setShowCart(true)} className="flex items-center space-x-2 focus:outline-none text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-800 hover:underline" href="javascript:void(0)">
                     <div>
@@ -177,7 +159,7 @@ export const Header = () => {
         </div>
       </nav>
       {
-        showCart && <CartModal/>
+        showCart && <CartModal />
       }
     </>
   )
