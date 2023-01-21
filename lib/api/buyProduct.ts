@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { cartProps } from '../../interface/product';
-import { getStripe }  from '../stripe';
+import { getStripe } from '../stripe';
 
 export const buyProduct = async (Product: cartProps) => {
   const stripe = await getStripe();

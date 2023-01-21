@@ -7,9 +7,9 @@ type LayoutProps = {
 
 export const Layout = ({ children }: LayoutProps) => (
   <>
-    <Header/>
+    <Header />
     <main className="h-full w-full bg-white py-2 px-10 flex flex-col">
       {children}
     </main>
   </>
-);
+); 

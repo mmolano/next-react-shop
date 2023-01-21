@@ -1,9 +1,9 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { Provider, createClient, Client } from 'urql'
-import Head from 'next/head';
-import { StateContext } from '../lib/product/context';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { Client, createClient, Provider } from 'urql';
+import { StateContext } from '../lib/product/context';
+import '../styles/globals.css';
 
 const client = createClient({ url: process.env.NEXT_PUBLIC_BACKEND_API });
 

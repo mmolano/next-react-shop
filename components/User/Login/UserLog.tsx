@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { useUser } from '@auth0/nextjs-auth0/client';
+import Image from 'next/image';
+import Link from "next/link";
 
 export const UserLog = (isMobile: boolean = false) => {
   const { user } = useUser();
@@ -8,7 +9,7 @@ export const UserLog = (isMobile: boolean = false) => {
     return (
       <>
         <li>
-          <Link href={"/api/auth/login"} className="flex items-center space-x-2 focus:outline-none text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-800 hover:underline" href="javascript:void(0)">
+          <Link href={"/api/auth/login"} className="flex items-center space-x-2 focus:outline-none text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-800 hover:underline" >
             <div>
               <svg className="fill-stroke" width={18} height={20} viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
@@ -37,7 +38,12 @@ export const UserLog = (isMobile: boolean = false) => {
       <>
         <li className="list-none">
           <Link href={'/profile'}>
-            <img className="rounded-xl w-6 h-6 m-auto" src={user.picture} alt={user.name} />
+            <Image className="rounded-xl w-6 h-6 m-auto"
+              src={user.picture}
+              height="24"
+              width="24"
+              alt={user.name}
+            />
           </Link>
         </li>
       </>

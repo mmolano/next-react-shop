@@ -1,17 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
-import { useStateContext } from "../../lib/product/context";
-import { useQuery } from "urql";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { TiArrowLeftThick } from "react-icons/ti";
-import { getQueryProduct } from "./hooks/getQuery";
+import { useQuery } from "urql";
+import { useStateContext } from "../../lib/product/context";
 import { GET_PRODUCT } from "../../lib/product/query";
 import { Loader } from "../Loader/Loader";
+import { GetQueryProduct } from "./hooks/GetQuery";
 
 export const ProductDetails = () => {
   const { query } = useRouter();
   const { quantity, addProduct, removeProduct, onAdd } = useStateContext();
-  const [results]: object = getQueryProduct(query.id);
+  const [results]: object = GetQueryProduct(query.id);
   const { data, fetching, error }: object = results;
 
   //TODO: put conditions on loader & error
@@ -99,17 +100,37 @@ export const ProductDetails = () => {
           </div>
           <div className=" w-full sm:w-96 md:w-8/12  lg:w-6/12 flex lg:flex-row flex-col lg:gap-8 sm:gap-6 gap-4">
             <div className=" w-full lg:w-8/12 bg-gray-100 flex justify-center items-center">
-              <img src={image.data[0].attributes.formats.large.url} alt={slug} />
+              <Image
+                src={image.data[0].attributes.formats.large.url}
+                alt={slug}
+                width={image.data[0].attributes.formats.large.width}
+                height={image.data[0].attributes.formats.large.height}
+              />
             </div>
             <div className=" w-full lg:w-4/12 grid lg:grid-cols-1 sm:grid-cols-4 grid-cols-2 gap-6">
               <div className="bg-gray-100 flex justify-center items-center py-4">
-                <img src="https://i.ibb.co/0jX1zmR/sam-moqadam-kvmds-Tr-GOBM-unsplash-removebg-preview-1-1.png" alt="Wooden chair - preview 1" />
+                <Image
+                  src="https://i.ibb.co/0jX1zmR/sam-moqadam-kvmds-Tr-GOBM-unsplash-removebg-preview-1-1.png"
+                  alt="Wooden chair - preview 1"
+                  width="50"
+                  height="50"
+                />
               </div>
               <div className="bg-gray-100 flex justify-center items-center py-4">
-                <img src="https://i.ibb.co/7zv1N5Q/sam-moqadam-kvmds-Tr-GOBM-unsplash-removebg-preview-2.png" alt="Wooden chair - preview 2" />
+                <Image
+                  src="https://i.ibb.co/7zv1N5Q/sam-moqadam-kvmds-Tr-GOBM-unsplash-removebg-preview-2.png"
+                  alt="Wooden chair - preview 2"
+                  width="50"
+                  height="50"
+                />
               </div>
               <div className="bg-gray-100 flex justify-center items-center py-4">
-                <img src="https://i.ibb.co/0jX1zmR/sam-moqadam-kvmds-Tr-GOBM-unsplash-removebg-preview-1-1.png" alt="Wooden chair- preview 3" />
+                <Image
+                  src="https://i.ibb.co/0jX1zmR/sam-moqadam-kvmds-Tr-GOBM-unsplash-removebg-preview-1-1.png"
+                  alt="Wooden chair- preview 3"
+                  width="50"
+                  height="50"
+                />
               </div>
             </div>
           </div>

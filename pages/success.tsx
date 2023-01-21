@@ -1,7 +1,8 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { getPercentage, parsePrice } from "../lib/price";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { Layout } from "../components/Layout/layout";
+import { getPercentage, parsePrice } from "../lib/price";
 
 const stripe = require('stripe')(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
 
@@ -37,10 +38,20 @@ export default function Success({ order }) {
 
                 {
                   order.line_items.data.map((item: object) => (
-                    <div className="mt-4 md:mt-6 flex  flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full ">
+                    <div key={item.description} className="mt-4 md:mt-6 flex  flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full ">
                       <div className="pb-4 md:pb-8 w-full md:w-40">
-                        <img className="w-full hidden md:block" src="https://i.ibb.co/84qQR4p/Rectangle-10.png" alt="dress" />
-                        <img className="w-full md:hidden" src="https://i.ibb.co/L039qbN/Rectangle-10.png" alt="dress" />
+                        <Image className="w-full hidden md:block"
+                          src="https://i.ibb.co/84qQR4p/Rectangle-10.png"
+                          height="100"
+                          width="100"
+                          alt="dress"
+                        />
+                        <Image className="w-full md:hidden"
+                          src="https://i.ibb.co/L039qbN/Rectangle-10.png"
+                          height="100"
+                          width="100"
+                          alt="dress"
+                        />
                       </div>
                       <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0">
                         <div className="w-full flex flex-col justify-start items-start space-y-8">
@@ -102,7 +113,12 @@ export default function Success({ order }) {
                   <div className="flex justify-between items-start w-full">
                     <div className="flex justify-center items-center space-x-4">
                       <div className="w-8 h-8">
-                        <img className="w-full h-full" alt="logo" src="https://i.ibb.co/L8KSdNQ/image-3.png" />
+                        <Image className="w-full h-full"
+                          alt="logo"
+                          src="https://i.ibb.co/L8KSdNQ/image-3.png"
+                          height="100"
+                          width="100"
+                        />
                       </div>
                       <div className="flex flex-col justify-start items-center">
                         <p className="text-lg leading-6 font-semibold text-gray-800">
@@ -117,14 +133,17 @@ export default function Success({ order }) {
                 </div>
               </div>
             </div>
-
-
             <div className="bg-gray-50 w-full xl:w-96 flex justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col ">
               <h3 className="text-xl font-semibold leading-5 text-gray-800">Customer</h3>
               <div className="flex  flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0 ">
                 <div className="flex flex-col justify-start items-start flex-shrink-0">
                   <div className="flex justify-center  w-full  md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
-                    <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" />
+                    <Image
+                      src="https://i.ibb.co/5TSg7f6/Rectangle-18.png"
+                      alt="avatar"
+                      height="50"
+                      width="50"
+                    />
                     <div className=" flex justify-start items-start flex-col space-y-2">
                       <p className="text-base font-semibold leading-4 text-left text-gray-800">{order.customer_details.name}</p>
                       <p className="text-sm leading-5 text-gray-600">10 Previous Orders</p>

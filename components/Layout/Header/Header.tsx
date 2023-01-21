@@ -1,10 +1,9 @@
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Link from "next/link";
 import { useState } from "react";
 import { useStateContext } from "../../../lib/product/context";
 import { CartModal } from "../../Cart/Modal/CartModal";
-import { useUser } from '@auth0/nextjs-auth0/client';
 import { UserLog } from "../../User/Login/UserLog";
-
 
 export const Header = () => {
   const {

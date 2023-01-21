@@ -1,7 +1,7 @@
-import { useStateContext } from "../../../lib/product/context";
-import { Cart } from "../Cart";
 import { buyProduct } from "../../../lib/api/buyProduct";
 import { parsePrice } from "../../../lib/price";
+import { useStateContext } from "../../../lib/product/context";
+import { Cart } from "../Cart";
 
 export const CartModal = () => {
   const {
@@ -27,7 +27,6 @@ export const CartModal = () => {
                     <p className="text-sm pl-2 leading-none">Back</p>
                   </div>
                   <p className="text-5xl font-black leading-10 text-gray-800 pt-3">Shopping Bag</p>
-
                   {
                     cartItems.length >= 1 ? cartItems.map((item: object) => {
                       return (
@@ -38,7 +37,6 @@ export const CartModal = () => {
                     }) : <div className="flex justify-center pt-40 text-4xl text-gray-500">Your bag is empty!</div>
                   }
                 </div>
-
                 {
                   cartItems.length >= 1 && (
                     <div className="xl:w-1/2 md:w-1/3 xl:w-1/4 w-full bg-gray-100 h-full">

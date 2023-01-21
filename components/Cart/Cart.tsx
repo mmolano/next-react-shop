@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { useStateContext } from "../../lib/product/context";
+import { parsePrice } from "../../lib/price";
 
 // TODO check type
 export const Cart = (product) => {
@@ -8,7 +10,13 @@ export const Cart = (product) => {
     <>
       <div className="md:flex items-center mt-14 py-8 border-t border-gray-200 transition-transform translate-x-6">
         <div className="w-1/4">
-          <img src={product.product.image.data[0].attributes.formats.thumbnail.url} alt={product.product.slug} className="w-full h-full object-center object-cover" />
+          <Image
+            src={product.product.image.data[0].attributes.formats.thumbnail.url}
+            alt={product.product.slug}
+            className="w-full h-full object-center object-cover"
+            width={product.product.image.data[0].attributes.formats.thumbnail.width}
+            height={product.product.image.data[0].attributes.formats.thumbnail.height}
+          />
         </div>
         <div className="md:pl-3 md:w-3/4">
           <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">RF293</p>
@@ -28,7 +36,7 @@ export const Cart = (product) => {
             <div className="flex itemms-center">
               <p onClick={() => onRemoveAll(product.product, product.product.quantity)} className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">Remove</p>
             </div>
-            <p className="text-base font-black leading-none text-gray-800">${product.product.price.toFixed(2)}</p>
+            <p className="text-base font-black leading-none text-gray-800">${parsePrice(product.product.price)}</p>
           </div>
         </div>
       </div>

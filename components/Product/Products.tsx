@@ -1,14 +1,14 @@
 
 import { Loader } from "../Loader/Loader";
-import { getQueryProducts } from "./hooks/getQuery";
+import { GetQueryProducts } from "./hooks/GetQuery";
 import { Product } from "./Product";
 
 export const Products = () => {
-  const [results] = getQueryProducts();
+  const [results] = GetQueryProducts();
   const { data, fetching, error } = results;
 
   //TODO: put conditions on loader
-  if (fetching) return <Loader/>;
+  if (fetching) return <Loader />;
   //TODO: flash popup on error
   if (error) return <p>{error.message}</p>;
 
