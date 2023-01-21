@@ -6,7 +6,6 @@ import { TiArrowLeftThick } from "react-icons/ti";
 import { useQuery } from "urql";
 import { useStateContext } from "../../lib/product/context";
 import { GET_PRODUCT } from "../../lib/product/query";
-import { Loader } from "../Loader/Loader";
 import { GetQueryProduct } from "./hooks/GetQuery";
 
 export const ProductDetails = () => {
@@ -16,7 +15,7 @@ export const ProductDetails = () => {
   const { data, fetching, error }: object = results;
 
   //TODO: put conditions on loader & error
-  if (fetching) return <Loader />;
+  if (fetching) return 'hi';
   if (error) return <p>{error.message}</p>;
 
   const { name, price, image, description, slug, categories, availability } = data.products.data[0].attributes;

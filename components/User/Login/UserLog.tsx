@@ -37,7 +37,7 @@ export const UserLog = (isMobile: boolean = false) => {
     return (
       <>
         <li className="list-none">
-          <Link href={'/profile'}>
+          <Link href={'/user/profile'}>
             <Image className="rounded-xl w-6 h-6 m-auto"
               src={user.picture}
               height="24"

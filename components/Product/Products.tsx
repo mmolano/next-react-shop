@@ -1,5 +1,4 @@
-
-import { Loader } from "../Loader/Loader";
+import { notify } from "../../lib/popup";
 import { GetQueryProducts } from "./hooks/GetQuery";
 import { Product } from "./Product";
 
@@ -7,8 +6,9 @@ export const Products = () => {
   const [results] = GetQueryProducts();
   const { data, fetching, error } = results;
 
+
   //TODO: put conditions on loader
-  if (fetching) return <Loader />;
+  if (fetching) return 'hi';
   //TODO: flash popup on error
   if (error) return <p>{error.message}</p>;
 
