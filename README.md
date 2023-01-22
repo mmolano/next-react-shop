@@ -1,20 +1,17 @@
-# E-commerce next.js front application
+# E-commerce strapi back application
 ## Getting Started
 
 
 This project uses :
-- [`Tailwind css`](https://tailwindcss.com/) for css management.
-- Toastify for notifications : https://www.npmjs.com/package/react-toastify.
-- Axios
-- Stripe
-- React.js
+- cloudinary.
+- strapi
 
 ### Installing
 
 **Step 1:** Download the folder
 
 ```
-git clone https://github.com/mmolano/next-react-shop.git
+git clone https://github.com/mmolano/strapi-api.git
 ```
 
 **Step 2:** Create a .env file
@@ -29,23 +26,26 @@ cp .env.example .env
 npm i
 ```
 
+**Pre-required** :
+- Node <= v18
+
 **Warning** :
 
-As this project uses Auth0, stripe and another project, you will have to manually setup the keys in the .env file.
-
-This project uses the following strapi project for the backend : 
+This project uses cloudinary for images and another project for the frontend : 
 
 ```
-git clone https://github.com/mmolano/strapi-api.git
+git clone https://github.com/mmolano/next-react-shop.git 
 ```
 
 Launch the server : 
 
 ```bash
-npm run dev
+npm run develop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:1337](http://localhost:1337) with your browser to see the result.
+
+Open [http://localhost:1337/admin](http://localhost:1337/admin) to manage the database
 
 ## Authors
 
