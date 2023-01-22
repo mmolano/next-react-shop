@@ -2,6 +2,7 @@ import { buyProduct } from "../../../lib/api/buyProduct";
 import { parsePrice } from "../../../lib/price";
 import { useStateContext } from "../../../lib/product/context";
 import { Cart } from "../Cart";
+import { useState } from "react";
 
 export const CartModal = () => {
   const {
@@ -11,15 +12,23 @@ export const CartModal = () => {
     totalPrice
   } = useStateContext();
 
+  const [slide, setSlide] = useState('')
+
   return (
     <>
       <div className="z-60">
         {showCart && (
-          <div className="transform translate-x-0 transition ease-in-out duration-700 w-full h-full bg-black bg-opacity-90 top-0 overflow-y-auto overflow-x-hidden fixed sticky-0" id="chec-div">
-            <div className="w-full absolute z-10 right-0 h-full overflow-x-hidden" id="checkout">
+          <div className="w-full h-full bg-black bg-opacity-90 top-0 overflow-y-auto overflow-x-hidden fixed sticky-0" id="chec-div">
+            <div className={`${slide ? "animate-out" : 'animate-in'} w-full absolute z-10 right-0 h-full overflow-x-hidden`} id="checkout">
               <div className="flex md:flex-row flex-col justify-end" id="cart">
                 <div className="lg:w-1/2 w-full md:pl-10 pl-4 pr-10 md:pr-4 md:py-12 py-8 bg-white overflow-y-auto overflow-x-hidden h-screen" id="scroll">
-                  <div className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer" onClick={() => setShowCart(!showCart)}>
+                  <div className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer"
+                    onClick={() => {
+                      setSlide(true);
+                      setTimeout(() => {
+                        setShowCart(!showCart)
+                      }, 400)
+                    }}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width={16} height={16} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <polyline points="15 6 9 12 15 18" />
@@ -39,7 +48,7 @@ export const CartModal = () => {
                 </div>
                 {
                   cartItems.length >= 1 && (
-                    <div className="xl:w-1/2 md:w-1/3 xl:w-1/4 w-full bg-gray-100 h-full">
+                    <div className="md:w-1/3 xl:w-1/4 w-full bg-gray-100 h-full">
                       <div className="flex flex-col md:h-screen px-14 py-20 justify-between overflow-y-auto">
                         <div>
                           <p className="text-4xl font-black leading-9 text-gray-800">Summary</p>

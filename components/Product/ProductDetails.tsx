@@ -28,7 +28,7 @@ export const ProductDetails = () => {
 
   if (fetching) return <p></p>
 
-  if (error) return toast.error('Error', {
+  if (error) return toast.error(error.message, {
     toastId: '',
     position: "top-right",
     autoClose: false,
