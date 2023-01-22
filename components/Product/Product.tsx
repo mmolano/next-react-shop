@@ -3,6 +3,7 @@ import Link from "next/link";
 import ProductProps from "../../interface/product";
 import { sanitizeUrl } from "../../lib/sanitizer";
 import { parsePrice } from "../../lib/price";
+import { toast } from 'react-toastify';
 
 export const Product = (product: ProductProps) => {
   const { name, price, image, slug } = product.product.attributes;
@@ -12,7 +13,7 @@ export const Product = (product: ProductProps) => {
   return (
     <>
       <article className="group">
-        <Link href={url}>
+        <Link href={url} onClick={() => toast.dismiss()}>
           <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 overflow-hidden lg:h-96 lg:aspect-none">
             <Image
               className="w-full h-full object-center object-cover lg:w-full lg:h-full"

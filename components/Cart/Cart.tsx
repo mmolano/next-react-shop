@@ -1,10 +1,22 @@
 import Image from "next/image";
-import { useStateContext } from "../../lib/product/context";
+import { toast } from 'react-toastify';
 import { parsePrice } from "../../lib/price";
+import { useStateContext } from "../../lib/product/context";
 
 // TODO check type
 export const Cart = (product) => {
   const { onRemoveAll } = useStateContext();
+
+  const notify = () => toast.warning('The product has been removed!', {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
 
   return (
     <>
@@ -34,7 +46,11 @@ export const Cart = (product) => {
           <p className="w-96 text-xs leading-3 text-gray-600">Composition: 100% calf leather</p>
           <div className="flex items-center justify-between pt-5 pr-6">
             <div className="flex itemms-center">
-              <p onClick={() => onRemoveAll(product.product, product.product.quantity)} className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">Remove</p>
+              <p onClick={() => {
+                onRemoveAll(product.product, product.product.quantity);
+                notify()
+              }
+              } className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">Remove</p>
             </div>
             <p className="text-base font-black leading-none text-gray-800">${parsePrice(product.product.price)}</p>
           </div>

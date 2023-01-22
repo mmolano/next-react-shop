@@ -1,4 +1,4 @@
-import { notify } from "../../lib/popup";
+import { toast } from 'react-toastify';
 import { GetQueryProducts } from "./hooks/GetQuery";
 import { Product } from "./Product";
 
@@ -6,11 +6,29 @@ export const Products = () => {
   const [results] = GetQueryProducts();
   const { data, fetching, error } = results;
 
+  if (fetching) return toast.info('Loading products!', {
+    toastId: '',
+    autoClose: 200,
+    position: "top-right",
+    hideProgressBar: true,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+  })
 
-  //TODO: put conditions on loader
-  if (fetching) return 'hi';
-  //TODO: flash popup on error
-  if (error) return <p>{error.message}</p>;
+  if (error) return toast.error(error.message ? error.message : 'Error', {
+    toastId: ' ',
+    position: "top-right",
+    autoClose: false,
+    hideProgressBar: true,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+  })
 
   const products = data.products.data;
 
