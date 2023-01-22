@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.break-line {
+   overflow-break: normal;
+   line-break: anywhere;
+}

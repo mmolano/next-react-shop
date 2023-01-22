@@ -6,17 +6,7 @@ export const Products = () => {
   const [results] = GetQueryProducts();
   const { data, fetching, error } = results;
 
-  if (fetching) return toast.info('Loading products!', {
-    toastId: '',
-    autoClose: 200,
-    position: "top-right",
-    hideProgressBar: true,
-    closeOnClick: false,
-    pauseOnHover: false,
-    draggable: false,
-    progress: undefined,
-    theme: "light",
-  })
+  if (fetching) return '';
 
   if (error) return toast.error(error.message ? error.message : 'Error', {
     toastId: ' ',

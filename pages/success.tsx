@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { Layout } from "../components/Layout/layout";
+import { convertToDate } from "../lib/dateConverter";
 import { getPercentage, parsePrice } from "../lib/price";
 
 const stripe = require('stripe')(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
@@ -16,7 +17,7 @@ export async function getServerSideProps(params: string) {
   return { props: { order } };
 }
 
-export default function Success({ order }) {
+export default function Success({ order }: object) {
   const route = useRouter();
 
   return (
@@ -25,10 +26,8 @@ export default function Success({ order }) {
         <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
           <div className="flex justify-start item-start space-y-2 flex-col ">
             <TiArrowLeftThick onClick={() => route.push("/")} className="text-4xl hover:cursor-pointer" />
-            {/* TODO: get real number */}
-            <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">Order #13432</h1>
-            {/* TODO: change to actual data */}
-            <p className="text-base font-medium leading-6 text-gray-600">21st Mart 2021 at 10:34 PM</p>
+            <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">Order: <span className="break-line">{order.payment_intent}</span></h1>
+            <p className="text-base font-medium leading-6 text-gray-600">Date: {convertToDate(order.created)}</p>
           </div>
           <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
 
@@ -39,20 +38,6 @@ export default function Success({ order }) {
                 {
                   order.line_items.data.map((item: object) => (
                     <div key={item.description} className="mt-4 md:mt-6 flex  flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full ">
-                      <div className="pb-4 md:pb-8 w-full md:w-40">
-                        <Image className="w-full hidden md:block"
-                          src="https://i.ibb.co/84qQR4p/Rectangle-10.png"
-                          height="100"
-                          width="100"
-                          alt="dress"
-                        />
-                        <Image className="w-full md:hidden"
-                          src="https://i.ibb.co/L039qbN/Rectangle-10.png"
-                          height="100"
-                          width="100"
-                          alt="dress"
-                        />
-                      </div>
                       <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0">
                         <div className="w-full flex flex-col justify-start items-start space-y-8">
                           <h3 className="text-xl xl:text-2xl font-semibold leading-6 text-gray-800">{item.description}</h3>
@@ -138,15 +123,8 @@ export default function Success({ order }) {
               <div className="flex  flex-col md:flex-row xl:flex-col justify-start items-stretch h-full w-full md:space-x-6 lg:space-x-8 xl:space-x-0 ">
                 <div className="flex flex-col justify-start items-start flex-shrink-0">
                   <div className="flex justify-center  w-full  md:justify-start items-center space-x-4 py-8 border-b border-gray-200">
-                    <Image
-                      src="https://i.ibb.co/5TSg7f6/Rectangle-18.png"
-                      alt="avatar"
-                      height="50"
-                      width="50"
-                    />
                     <div className=" flex justify-start items-start flex-col space-y-2">
                       <p className="text-base font-semibold leading-4 text-left text-gray-800">{order.customer_details.name}</p>
-                      <p className="text-sm leading-5 text-gray-600">10 Previous Orders</p>
                     </div>
                   </div>
 
