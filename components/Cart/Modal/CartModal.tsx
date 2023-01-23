@@ -4,7 +4,7 @@ import { useStateContext } from "../../../lib/product/context";
 import { Cart } from "../Cart";
 import { useState } from "react";
 
-export const CartModal = () => {
+export const CartModal: React.FC = () => {
   const {
     cartItems,
     showCart,
@@ -12,7 +12,7 @@ export const CartModal = () => {
     totalPrice
   } = useStateContext();
 
-  const [slide, setSlide] = useState('')
+  const [slide, setSlide]: boolean = useState(false);
 
   return (
     <>

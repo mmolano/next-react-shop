@@ -5,7 +5,7 @@ import { parsePrice } from "../../lib/price";
 import { useStateContext } from "../../lib/product/context";
 
 // TODO check type
-export const Cart = (product) => {
+export const Cart: React.FC = (product: object) => {
   const { onRemoveAll } = useStateContext();
 
   const notify = () => toast.warning('The product has been removed!', {

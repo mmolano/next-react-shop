@@ -9,7 +9,7 @@ import { GET_PRODUCT } from "../../lib/product/query";
 import { GetQueryProduct } from "./hooks/GetQuery";
 import { toast } from 'react-toastify';
 
-export const ProductDetails = () => {
+export const ProductDetails: React.FC = () => {
   const { query }: string = useRouter();
   const { quantity, addProduct, removeProduct, onAdd } = useStateContext();
   const [results]: object = GetQueryProduct(query.id);

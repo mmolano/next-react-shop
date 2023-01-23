@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 import { cartProps } from '../../interface/product';
 import { getStripe } from '../stripe';
 
-export const buyProduct = async (Product: cartProps) => {
+export const buyProduct: Promise<void> = async (Product: cartProps) => {
   const stripe = await getStripe();
-  //TODO: ADD STRIPE
+
   const response = await axios({
     headers: { 'Content-Type': 'application/json' },
     method: 'post',

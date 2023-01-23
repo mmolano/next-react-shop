@@ -5,7 +5,7 @@ import { useStateContext } from "../../../lib/product/context";
 import { CartModal } from "../../Cart/Modal/CartModal";
 import { UserLog } from "../../User/Login/UserLog";
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const {
     showCart,
     setShowCart,

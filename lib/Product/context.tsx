@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
 
-export const ProductStateContext = createContext();
+export const ProductStateContext = React.createContext<unknown | null>(null);
 
 // TODO: add interface check && must fix context error | Split context
-export const StateContext = ({ children }) => {
-  const [showCart, setShowCart] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+export const StateContext: React.FC<React.ReactNode> = ({ children }) => {
+  const [showCart, setShowCart]: boolean = useState(false);
+  const [showMenu, setShowMenu]: boolean = useState(false);
 
   const [cartItems, setCartItems] = useState([]);
   const [quantity, setQty]: number[] = useState(1);
@@ -40,6 +40,7 @@ export const StateContext = ({ children }) => {
     setTotalPrice(prev => prev - product.price);
 
     const exist = cartItems.find(item => item.slug === product.slug);
+    
     if (exist.quantity === 1) {
       setCartItems(cartItems.filter((item) => item.slug !== product.slug))
     } else {

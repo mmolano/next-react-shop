@@ -1,6 +1,6 @@
-const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi;
+const SAFE_URL_PATTERN: RegExp = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi;
 
-const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
+const DATA_URL_PATTERN: RegExp = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
 
 function _sanitizeUrl(url: string): string {
   url = String(url);
@@ -10,6 +10,6 @@ function _sanitizeUrl(url: string): string {
   return `unsafe:${url}`;
 }
 
-export function sanitizeUrl(url = "about:blank"): string {
+export function sanitizeUrl(url: string = "about:blank"): string {
   return _sanitizeUrl(String(url).trim());
 }

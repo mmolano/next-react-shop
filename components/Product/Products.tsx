@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { GetQueryProducts } from "./hooks/GetQuery";
 import { Product } from "./Product";
 
-export const Products = () => {
+export const Products: React.FC = () => {
   const [results] = GetQueryProducts();
   const { data, fetching, error } = results;
 
@@ -20,7 +20,7 @@ export const Products = () => {
     theme: "light",
   })
 
-  const products = data.products.data;
+  const products: object = data.products.data;
 
   return (
     <>

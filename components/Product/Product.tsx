@@ -5,10 +5,10 @@ import { sanitizeUrl } from "../../lib/sanitizer";
 import { parsePrice } from "../../lib/price";
 import { toast } from 'react-toastify';
 
-export const Product = (product: ProductProps) => {
+export const Product: React.FC = (product: ProductProps) => {
   const { name, price, image, slug } = product.product.attributes;
   const id: number = product.product.id;
-  const url = sanitizeUrl(`/product/${id}`);
+  const url: string = sanitizeUrl(`/product/${id}`);
 
   return (
     <>

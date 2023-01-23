@@ -2,8 +2,8 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import Image from 'next/image';
 import Link from "next/link";
 
-export const UserLog = (isMobile: boolean = false) => {
-  const { user } = useUser();
+export const UserLog: React.FC = (isMobile: boolean = false) => {
+  const { user }: UserContext = useUser();
 
   if (!isMobile && !user)
     return (

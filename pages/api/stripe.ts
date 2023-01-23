@@ -2,12 +2,12 @@ import { getSession } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Stripe } from 'stripe';
 
-const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`)
+const stripe: Stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
 
 //TODO: must fix when user is not logged in 
-export default async function handler(request: NextApiRequest, response: NextApiResponse) {
+export default async function handler(request: NextApiRequest, response: NextApiResponse): NextApiResponse<any> {
   const user = getSession(request, response);
-  const user_stripe_id = user ? user[`${process.env.NEXT_PUBLIC_BASE_URL}/stripe_customer_id`] : null;
+  const user_stripe_id: ?string = user ? user[`${process.env.NEXT_PUBLIC_BASE_URL}/stripe_customer_id`] : null;
 
   try {
     const session = await stripe.checkout.sessions.create({
