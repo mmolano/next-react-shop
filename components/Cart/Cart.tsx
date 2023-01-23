@@ -19,7 +19,7 @@ export const Cart: React.FC = (product: object) => {
     theme: "light",
   });
 
-  const [slide, setSlide] = useState('')
+  const [slide, setSlide]: boolean = useState(false);
 
   return (
     <>

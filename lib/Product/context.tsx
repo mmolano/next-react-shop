@@ -7,7 +7,7 @@ export const StateContext: React.FC<React.ReactNode> = ({ children }) => {
   const [showCart, setShowCart]: boolean = useState(false);
   const [showMenu, setShowMenu]: boolean = useState(false);
 
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems]: [] = useState([]);
   const [quantity, setQty]: number[] = useState(1);
 
   const [totalCountProduct, setTotalCountProduct]: number[] = useState(0);
@@ -40,7 +40,7 @@ export const StateContext: React.FC<React.ReactNode> = ({ children }) => {
     setTotalPrice(prev => prev - product.price);
 
     const exist = cartItems.find(item => item.slug === product.slug);
-    
+
     if (exist.quantity === 1) {
       setCartItems(cartItems.filter((item) => item.slug !== product.slug))
     } else {
