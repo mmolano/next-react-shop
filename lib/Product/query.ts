@@ -1,4 +1,4 @@
-export const GET_PRODUCTS: object = `query{
+export const GET_PRODUCTS: string = `query{
     products{
       data{
         id
@@ -30,7 +30,7 @@ export const GET_PRODUCTS: object = `query{
   }
   `;
 
-export const GET_PRODUCT: object = `query getProduct($id: ID!) {
+export const GET_PRODUCT: string = `query getProduct($id: ID!) {
   products(filters: {id: {eq: $id}}) {
     data{
       attributes{

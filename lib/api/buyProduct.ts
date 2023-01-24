@@ -1,18 +1,18 @@
-import axios from 'axios'
-import { cartProps } from '../../interface/product';
-import { getStripe } from '../stripe';
+import axios from 'axios';
+import { cartProduct } from '../../interface/product';
+import getStripe from '../stripe';
 
-export const buyProduct = async (Product: cartProps) => {
+export const buyProduct = async (product: cartProduct[]) => {
   const stripe = await getStripe();
-  //TODO: ADD STRIPE
-  const response = await axios({
+
+  return await axios({
     headers: { 'Content-Type': 'application/json' },
     method: 'post',
     url: '/api/stripe',
-    data: JSON.stringify(Product)
+    data: JSON.stringify(product)
   })
     .then(res => {
-      stripe.redirectToCheckout({ sessionId: res.data.id });
+      stripe!.redirectToCheckout({ sessionId: res.data.id });
     })
     .catch(error => {
       // TODO: handle error with message popup flash

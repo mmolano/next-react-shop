@@ -1,18 +1,21 @@
-import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { UserProfile } from '@auth0/nextjs-auth0/dist/client/use-user';
+import { useRouter } from 'next/router';
 import { Stripe } from 'stripe';
-import { Layout } from "../../components/Layout/Layout";
-import { parsePrice } from "../../lib/price";
+import { parsePrice } from '../../lib/price';
 
-const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
+const secret: string | undefined = process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!;
+
+const stripe: Stripe = new Stripe(secret, {
+   apiVersion: '2022-11-15',
+});
 
 export const getServerSideProps = withPageAuthRequired({
    async getServerSideProps(x) {
-      const user = getSession(x.req, x.res);
-      const stripeId = user[`${process.env.NEXT_PUBLIC_BASE_URL}/stripe_customer_id`];
+      const user = await getSession(x.req, x.res);
+      const customer_id = user ? user[`${process.env.NEXT_PUBLIC_BASE_URL}/stripe_customer_id`] : undefined;
       const getOrders = await stripe.paymentIntents.list({
-         customer: stripeId,
+         customer: customer_id,
       })
       return {
          props: { orders: getOrders.data },
@@ -20,7 +23,12 @@ export const getServerSideProps = withPageAuthRequired({
    }
 })
 
-export default function User({ user, orders }) {
+interface UserProps {
+   user: UserProfile;
+   orders: any[];
+}
+
+export default function User({ user, orders }: UserProps) {
    const route = useRouter();
 
    return (

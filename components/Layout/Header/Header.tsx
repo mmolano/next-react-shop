@@ -1,11 +1,9 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
-import Link from "next/link";
-import { useState } from "react";
-import { useStateContext } from "../../../lib/product/context";
-import { CartModal } from "../../Cart/Modal/CartModal";
-import { UserLog } from "../../User/Login/UserLog";
+import Link from 'next/link';
+import { useStateContext } from '../../../lib/Product/context';
+import { CartModal } from '../../Cart/Modal/CartModal';
+import { UserLog } from '../../User/Login/UserLog';
 
-export const Header = () => {
+export const Header: React.FC = () => {
   const {
     showCart,
     setShowCart,
@@ -78,14 +76,13 @@ export const Header = () => {
                 </ul>
               </div>
               <div className="hidden md:flex items-center space-x-4">
-                <UserLog isMobile="true" />
-                <button onClick={() => setShowCart(true)} aria-label="Bag" className="relative focus:outline-none focus:ring-2 focus:ring-gray-800 hover:bg-gray-100 p-0.5 rounded">
-                  <div className={`absolute text-xs bottom-4 rounded-xl bg-black text-white w-4 right-4 ${totalCountProduct > 0 ? 'animate-bounce' : ''}`}>
+                <UserLog isMobile={true} />
+                <button onClick={() => setShowCart?.(true)} aria-label="Bag" className="relative focus:outline-none focus:ring-2 focus:ring-gray-800 hover:bg-gray-100 p-0.5 rounded">
+                  <div className={`absolute text-xs bottom-4 rounded-xl bg-black text-white w-4 right-4 ${totalCountProduct! > 0 ? 'animate-bounce' : ''}`}>
                     {
-                      cartItems.length >= 1 ? totalCountProduct : 0
+                      cartItems!.length >= 1 ? totalCountProduct : 0
                     }
                   </div>
-
                   <svg className="fill-stroke text-gray-800 dark:text-black" width={20} height={22} viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 1L1 5V19C1 19.5304 1.21071 20.0391 1.58579 20.4142C1.96086 20.7893 2.46957 21 3 21H17C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19V5L16 1H4Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M1 5H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -94,7 +91,7 @@ export const Header = () => {
                 </button>
               </div>
               <div className="md:hidden">
-                <button aria-label="open menu" onClick={() => setShowMenu(!showMenu)} className="focus:outline-none focus:ring-2 focus:ring-gray-800 rounded">
+                <button aria-label="open menu" onClick={() => setShowMenu?.(!showMenu)} className="focus:outline-none focus:ring-2 focus:ring-gray-800 rounded">
                   <svg className="fill-stroke text-gray-800 dark:text-black" width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4 6H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M10 12H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -115,7 +112,7 @@ export const Header = () => {
                     />
                   </svg>
                 </div>
-                <button aria-label="close menu" onClick={() => setShowMenu(!showMenu)} className="text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800">
+                <button aria-label="close menu" onClick={() => setShowMenu?.(!showMenu)} className="text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-800">
                   <svg className="fill-stroke" width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 5L5 15" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M5 5L15 15" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
@@ -143,7 +140,7 @@ export const Header = () => {
               <ul className="bg-gray-50 dark:bg-gray-800 py-10 px-4 flex flex-col space-y-8 w-full">
                 <UserLog />
                 <li>
-                  <button onClick={() => setShowCart(true)} className="flex items-center space-x-2 focus:outline-none text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-800 hover:underline" href="javascript:void(0)">
+                  <button onClick={() => setShowCart?.(true)} className="flex items-center space-x-2 focus:outline-none text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-800 hover:underline">
                     <div>
                       <svg className="fill-stroke" width={22} height={22} viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4.33333 1L1 5V19C1 19.5304 1.23413 20.0391 1.65087 20.4142C2.06762 20.7893 2.63285 21 3.22222 21H18.7778C19.3671 21 19.9324 20.7893 20.3491 20.4142C20.7659 20.0391 21 19.5304 21 19V5L17.6667 1H4.33333Z" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
