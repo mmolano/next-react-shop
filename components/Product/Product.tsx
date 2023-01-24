@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import ProductProps from "../../interface/product";
-import { sanitizeUrl } from "../../lib/sanitizer";
-import { parsePrice } from "../../lib/price";
 import { toast } from 'react-toastify';
+import { products } from "../../interface/product";
+import { parsePrice } from "../../lib/price";
+import { sanitizeUrl } from "../../lib/sanitizer";
 
-export const Product: React.FC = (product: ProductProps) => {
-  const { name, price, image, slug } = product.product.attributes;
-  const id: number = product.product.id;
+export const Product = (props: { product: products }) => {
+  const { name, price, image, slug } = props.product.attributes;
+  const id: number = props.product.id;
   const url: string = sanitizeUrl(`/product/${id}`);
 
   return (

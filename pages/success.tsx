@@ -1,13 +1,19 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { TiArrowLeftThick } from "react-icons/ti";
-import { Layout } from "../components/Layout/layout";
-import { convertToDate } from "../lib/dateConverter";
-import { getPercentage, parsePrice } from "../lib/price";
+import { LineItem } from '@stripe/stripe-js';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { TiArrowLeftThick } from 'react-icons/ti';
+import { Stripe } from 'stripe';
+import { Layout } from '../components/Layout/Layout';
+import { convertToDate } from '../lib/dateConverter';
+import { getPercentage, parsePrice } from '../lib/price';
 
-const stripe = require('stripe')(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
+const secret: string | undefined = process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY!;
 
-export async function getServerSideProps(params: string) {
+const stripe: Stripe = new Stripe(secret, {
+  apiVersion: '2022-11-15',
+});
+
+export async function getServerSideProps(params: any) {
   const order = await stripe.checkout.sessions.retrieve(
     params.query.session_id,
     {
@@ -17,7 +23,7 @@ export async function getServerSideProps(params: string) {
   return { props: { order } };
 }
 
-export default function Success({ order }: object) {
+export default function Success({ order }: any) {
   const route = useRouter();
 
   return (
@@ -36,7 +42,7 @@ export default function Success({ order }: object) {
                 <p className="text-lg md:text-xl font-semibold leading-6 xl:leading-5 text-gray-800">Customer’s Cart</p>
 
                 {
-                  order.line_items.data.map((item: object) => (
+                  order.line_items.data.map((item: any) => (
                     <div key={item.description} className="mt-4 md:mt-6 flex  flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full ">
                       <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full  pb-8 space-y-4 md:space-y-0">
                         <div className="w-full flex flex-col justify-start items-start space-y-8">

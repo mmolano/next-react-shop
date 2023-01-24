@@ -1,17 +1,20 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useContext, useState } from 'react';
+import { contextIF } from '../../interface/context';
+import { productAttributes } from '../../interface/product';
 
-export const ProductStateContext = React.createContext<unknown | null>(null);
+export const ProductStateContext = React.createContext<contextIF>({});
 
-// TODO: add interface check && must fix context error | Split context
-export const StateContext: React.FC<React.ReactNode> = ({ children }) => {
-  const [showCart, setShowCart]: boolean = useState(false);
-  const [showMenu, setShowMenu]: boolean = useState(false);
+export const StateContext = ({ children }: { children: React.ReactNode }) => {
+  const [showCart, setShowCart] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [slide, setSlide] = useState(false);
+  const [removeItemFromCart, setRemoveItemFromCart] = useState(false);
 
-  const [cartItems, setCartItems]: [] = useState([]);
-  const [quantity, setQty]: number[] = useState(1);
+  const [cartItems, setCartItems]: any[] = useState([]);
+  const [quantity, setQty] = useState(1);
 
-  const [totalCountProduct, setTotalCountProduct]: number[] = useState(0);
-  const [totalPrice, setTotalPrice]: number[] = useState(0);
+  const [totalCountProduct, setTotalCountProduct] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const addProduct = () => {
     setQty(prevState => prevState + 1)
@@ -22,37 +25,37 @@ export const StateContext: React.FC<React.ReactNode> = ({ children }) => {
     }
   };
 
-  const onAdd = (product: object, quantity: number) => {
+  const onAdd = (product: productAttributes, quantity: number) => {
     setTotalCountProduct(prev => prev + quantity);
     setTotalPrice(prev => prev + (product.price * quantity));
 
-    const exist = cartItems.find(item => item.slug === product.slug);
+    const exist = cartItems.find((item: productAttributes) => item.slug === product.slug);
     if (exist) {
-      setCartItems(cartItems.map((item) => item.slug === product.slug ? { ...exist, quantity: exist.quantity + quantity } : item));
+      setCartItems(cartItems.map((item: productAttributes) => item.slug === product.slug ? { ...exist, quantity: exist.quantity + quantity } : item));
     } else {
       setCartItems([...cartItems, { ...product, quantity: quantity }]);
     }
     setQty(1);
   }
 
-  const onRemove = (product: object) => {
+  const onRemove = (product: productAttributes) => {
     setTotalCountProduct(prev => prev - 1);
     setTotalPrice(prev => prev - product.price);
 
-    const exist = cartItems.find(item => item.slug === product.slug);
+    const exist = cartItems.find((item: productAttributes) => item.slug === product.slug);
 
     if (exist.quantity === 1) {
-      setCartItems(cartItems.filter((item) => item.slug !== product.slug))
+      setCartItems(cartItems.filter((item: productAttributes) => item.slug !== product.slug))
     } else {
-      setCartItems(cartItems.map((item) => item.slug === product.slug ? { ...exist, quantity: exist.quantity - 1 } : item));
+      setCartItems(cartItems.map((item: productAttributes) => item.slug === product.slug ? { ...exist, quantity: exist.quantity - 1 } : item));
     }
   }
 
-  const onRemoveAll = (product: object, quantity: number) => {
+  const onRemoveAll = (product: productAttributes, quantity: number) => {
     setTotalCountProduct(prev => prev - quantity);
     setTotalPrice(prev => prev - (product.price * quantity));
 
-    setCartItems(cartItems.filter((item) => item.slug !== product.slug))
+    setCartItems(cartItems.filter((item: productAttributes) => item.slug !== product.slug))
   }
 
   return (
@@ -65,6 +68,10 @@ export const StateContext: React.FC<React.ReactNode> = ({ children }) => {
         cartItems,
         showCart,
         setShowCart,
+        slide,
+        setSlide,
+        removeItemFromCart,
+        setRemoveItemFromCart,
         showMenu,
         setShowMenu,
         onAdd,

@@ -1,10 +1,10 @@
-import { GET_PRODUCTS, GET_PRODUCT } from '../../../lib/product/query'
-import { Query, useQuery } from 'urql'
+import { useQuery } from 'urql';
+import { GET_PRODUCT, GET_PRODUCTS } from '../../../lib/Product/query';
 
-export const GetQueryProducts: object = () => {
+export const GetQueryProducts: any = () => {
   return useQuery({ query: GET_PRODUCTS });
 }
 
-export const GetQueryProduct: object = (id: string) => {
+export const GetQueryProduct: any = (id: string) => {
   return useQuery({ query: GET_PRODUCT, variables: { id: id } });
 }

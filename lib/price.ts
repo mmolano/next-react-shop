@@ -3,9 +3,9 @@ export function getPercentage(subTotal: number, total: number): string {
 }
 
 export function parsePrice(price: number, divided: boolean = false, quantity: number = 0): string {
-  if (divided & quantity == 0) {
+  if (divided && quantity == 0) {
     return (price / 100).toFixed(2);
-  } else if (divided & quantity != 0) {
+  } else if (divided && quantity != 0) {
     return ((price / 100) / quantity).toFixed(2);
   }
 
